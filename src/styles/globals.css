@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Variables CSS para modo claro/oscuro si querés usarlas */
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #eeeeee;
+  }
+}
+
+body {
+  @apply font-sans;
+  background-color: var(--background);
+  color: var(--foreground);
+}
