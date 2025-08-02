@@ -1,62 +1,24 @@
 'use client'
 
-import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { supabase } from '@/lib/supabaseBrowser'
-import TurnoForm from '@/components/TurnoForm'
-import TurnoList from '@/components/TurnoList'
+import { Button } from '@/components/UI/Button'
 
-export default function AdminPage() {
+export default function AdminPanel() {
   const router = useRouter()
-  const [loading, setLoading] = useState(true)
-  const [userEmail, setUserEmail] = useState<string | null>(null)
-
-  useEffect(() => {
-    const getUser = async () => {
-      const {
-        data: { session },
-      } = await supabase.auth.getSession()
-
-      if (!session) {
-        router.push('/auth')
-      } else {
-        // ✅ Corregido: manejamos el posible "undefined"
-        setUserEmail(session.user.email ?? null)
-        setLoading(false)
-      }
-    }
-
-    getUser()
-  }, [router])
-
-  const handleLogout = async () => {
-    await supabase.auth.signOut()
-    router.push('/auth')
-  }
-
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center text-lino-texto">
-        Cargando...
-      </div>
-    )
-  }
 
   return (
-    <main className="min-h-[calc(100vh-120px)] flex items-center justify-center px-4">
-      <div className="max-w-lg w-full text-center space-y-4 bg-lino-fondoSecundario border border-lino-borde rounded-xl p-6 shadow">
-        <h1 className="text-2xl font-semibold text-lino-encabezado">
-          Panel de administración
-        </h1>
-        <TurnoForm />
-        <TurnoList />
-        <p className="text-lino-texto">Sesión iniciada como: {userEmail}</p>
-        <button
-          onClick={handleLogout}
-          className="bg-lino-acento text-lino-encabezado font-medium py-2 px-6 rounded hover:opacity-90 transition"
-        >
-          Cerrar sesión
-        </button>
+    <main className="min-h-screen bg-lino-fondo flex flex-col items-center justify-center p-6">
+      <h1 className="text-3xl font-bold text-lino-texto mb-8">Panel de Administración</h1>
+
+      <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 max-w-md w-full">
+       <Button onClick={() => router.push('/admin/pacientes')}> Pacientes</Button>
+<Button onClick={() => router.push('/admin/turnos')}> Citas agendadas</Button>
+<Button onClick={() => router.push('/admin/pacientes/nuevo-paciente')}> Nuevo paciente</Button>
+<Button onClick={() => router.push('/admin/turnos/nuevo-turno')}> Nuevo turno</Button>
+<Button onClick={() => router.push('/admin/tratamientos')}> Tratamientos</Button>
+<Button onClick={() => router.push('/admin/tips')}> Tips & Certificaciones</Button>
+<Button onClick={() => router.push('/admin/config')}> Configuración</Button>
+
       </div>
     </main>
   )

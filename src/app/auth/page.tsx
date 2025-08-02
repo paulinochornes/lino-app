@@ -17,15 +17,17 @@ export default function AuthPage() {
     setError('')
     setLoading(true)
 
-    const authFn = isLogin
-      ? supabase.auth.signInWithPassword
-      : supabase.auth.signUp
+    let data, error
 
-    const { data, error } = await authFn({ email, password })
+    if (isLogin) {
+      ({ data, error } = await supabase.auth.signInWithPassword({ email, password }))
+    } else {
+      ({ data, error } = await supabase.auth.signUp({ email, password }))
+    }
 
     if (error) {
       setError(error.message)
-    } else if (data.session || data.user) {
+    } else if (data?.user || data?.session) {
       router.push('/admin')
     }
 
