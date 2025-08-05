@@ -1,4 +1,3 @@
-import React from 'react'
 import { supabase } from '@/lib/supabaseBrowser'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
@@ -19,11 +18,8 @@ function getNombreTratamiento(t: Consulta['tratamiento']): string {
   return t.nombre ?? 'Sin datos'
 }
 
-export default async function Page({
-  params,
-}: {
-  params: { id: string }
-}) {
+// ✅ SIN Promise<JSX.Element>, y usando destructuring
+export default async function Page({ params }: { params: { id: string } }) {
   const pacienteId = params.id
 
   const { data: paciente, error: errorPaciente } = await supabase
