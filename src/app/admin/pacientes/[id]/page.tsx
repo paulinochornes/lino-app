@@ -6,10 +6,25 @@ type Props = {
   params: { id: string }
 }
 
+interface Tratamiento {
+  nombre?: string
+}
+
+interface Consulta {
+  id: string
+  fecha: string
+  tratamiento: Tratamiento | Tratamiento[] | null
+}
+
+function getNombreTratamiento(t: Consulta["tratamiento"]): string {
+  if (!t) return 'Sin datos'
+  if (Array.isArray(t)) return t[0]?.nombre ?? 'Sin datos'
+  return t.nombre ?? 'Sin datos'
+}
+
 export default async function PerfilPaciente({ params }: Props) {
   const pacienteId = params.id
 
-  // Obtener paciente
   const { data: paciente, error: errorPaciente } = await supabase
     .from('pacientes')
     .select('*')
@@ -18,9 +33,8 @@ export default async function PerfilPaciente({ params }: Props) {
 
   if (errorPaciente || !paciente) return notFound()
 
-  // Obtener historial de consultas
-  const { data: consultas, error: errorConsultas } = await supabase
-    .from('consultas') // asegurate de que esta tabla existe
+  const { data: consultas } = await supabase
+    .from('consultas')
     .select(`
       id,
       fecha,
@@ -47,13 +61,13 @@ export default async function PerfilPaciente({ params }: Props) {
         <p>No hay consultas registradas.</p>
       ) : (
         <ul className="space-y-2">
-          {consultas.map((consulta: any) => (
+          {consultas.map((consulta: Consulta) => (
             <li
               key={consulta.id}
               className="p-4 bg-white border border-lino-borde rounded-xl"
             >
               <strong>{new Date(consulta.fecha).toLocaleDateString()}</strong> <br />
-              {consulta.tratamiento?.nombre || 'Sin datos'}
+              {getNombreTratamiento(consulta.tratamiento)}
             </li>
           ))}
         </ul>
