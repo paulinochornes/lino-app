@@ -2,10 +2,6 @@ import { supabase } from '@/lib/supabaseBrowser'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 
-type Props = {
-  params: { id: string }
-}
-
 interface Tratamiento {
   nombre?: string
 }
@@ -16,13 +12,17 @@ interface Consulta {
   tratamiento: Tratamiento | Tratamiento[] | null
 }
 
-function getNombreTratamiento(t: Consulta["tratamiento"]): string {
+function getNombreTratamiento(t: Consulta['tratamiento']): string {
   if (!t) return 'Sin datos'
   if (Array.isArray(t)) return t[0]?.nombre ?? 'Sin datos'
   return t.nombre ?? 'Sin datos'
 }
 
-export default async function PerfilPaciente({ params }: Props) {
+export default async function PerfilPaciente({
+  params,
+}: {
+  params: { id: string }
+}) {
   const pacienteId = params.id
 
   const { data: paciente, error: errorPaciente } = await supabase
@@ -66,7 +66,8 @@ export default async function PerfilPaciente({ params }: Props) {
               key={consulta.id}
               className="p-4 bg-white border border-lino-borde rounded-xl"
             >
-              <strong>{new Date(consulta.fecha).toLocaleDateString()}</strong> <br />
+              <strong>{new Date(consulta.fecha).toLocaleDateString()}</strong>
+              <br />
               {getNombreTratamiento(consulta.tratamiento)}
             </li>
           ))}
