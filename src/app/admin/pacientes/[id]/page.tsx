@@ -18,11 +18,7 @@ function getNombreTratamiento(t: Consulta['tratamiento']): string {
   return t.nombre ?? 'Sin datos'
 }
 
-export default async function PerfilPaciente({
-  params,
-}: {
-  params: { id: string }
-}) {
+export default async function Page({ params }: { params: { id: string } }) {
   const pacienteId = params.id
 
   const { data: paciente, error: errorPaciente } = await supabase
