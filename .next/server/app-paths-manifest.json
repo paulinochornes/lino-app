@@ -1,5 +1,0 @@
-{
-  "/admin/page": "app/admin/page.js",
-  "/admin/pacientes/page": "app/admin/pacientes/page.js",
-  "/admin/pacientes/nuevo-paciente/page": "app/admin/pacientes/nuevo-paciente/page.js"
-}

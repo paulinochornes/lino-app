@@ -11,9 +11,10 @@
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve",
+    "jsx": "react-jsx",             // ⬅️ Mejor que "preserve" si usás React 17+
+    "types": ["react"],             // ⬅️ ESTO corrige el error del namespace JSX
     "incremental": true,
-    "baseUrl": ".",  // ⬅️ esta línea es la que falta
+    "baseUrl": ".", 
     "paths": {
       "@/*": ["./src/*"]
     },
