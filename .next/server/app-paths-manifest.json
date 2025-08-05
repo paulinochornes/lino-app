@@ -1,0 +1,22 @@
+{
+  "/_not-found/page": "app/_not-found/page.js",
+  "/favicon.ico/route": "app/favicon.ico/route.js",
+  "/admin/config/page": "app/admin/config/page.js",
+  "/admin/pacientes/[id]/nueva-consulta/page": "app/admin/pacientes/[id]/nueva-consulta/page.js",
+  "/admin/pacientes/[id]/page": "app/admin/pacientes/[id]/page.js",
+  "/admin/pacientes/nuevo-paciente/page": "app/admin/pacientes/nuevo-paciente/page.js",
+  "/admin/pacientes/page": "app/admin/pacientes/page.js",
+  "/admin/page": "app/admin/page.js",
+  "/admin/tips/page": "app/admin/tips/page.js",
+  "/admin/tratamientos/page": "app/admin/tratamientos/page.js",
+  "/admin/turnos/[id]/editar/page": "app/admin/turnos/[id]/editar/page.js",
+  "/admin/turnos/nuevo-turno/page": "app/admin/turnos/nuevo-turno/page.js",
+  "/admin/turnos/page": "app/admin/turnos/page.js",
+  "/auth/page": "app/auth/page.js",
+  "/certificaciones/page": "app/certificaciones/page.js",
+  "/contacto/page": "app/contacto/page.js",
+  "/page": "app/page.js",
+  "/quienes-somos/page": "app/quienes-somos/page.js",
+  "/tips/page": "app/tips/page.js",
+  "/tratamientos/page": "app/tratamientos/page.js"
+}

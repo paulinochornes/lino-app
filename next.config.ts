@@ -9,7 +9,7 @@ const withPWA = require('next-pwa')({
 const nextConfig = {
   reactStrictMode: true,
   experimental: {
-    serverActions: true
+    serverActions: {} // ← CORRECTO
   }
 }
 

@@ -12,6 +12,13 @@ type Turno = {
   tratamiento: { nombre: string } | null
 }
 
+type TurnoDesdeDB = {
+  id: string
+  fecha: string
+  paciente: { nombre: string }[] | null
+  tratamiento: { nombre: string }[] | null
+}
+
 export default function TurnosPage() {
   const router = useRouter()
   const [turnos, setTurnos] = useState<Turno[]>([])
@@ -53,7 +60,13 @@ export default function TurnosPage() {
       if (error) {
         console.error('Error al obtener turnos:', error)
       } else {
-        setTurnos(data as Turno[])
+        const turnosMapeados = (data as TurnoDesdeDB[]).map((t) => ({
+          id: t.id,
+          fecha: t.fecha,
+          paciente: t.paciente?.[0] ?? { nombre: 'Paciente desconocido' },
+          tratamiento: t.tratamiento?.[0] ?? { nombre: 'Tratamiento sin especificar' },
+        }))
+        setTurnos(turnosMapeados)
       }
 
       setLoading(false)

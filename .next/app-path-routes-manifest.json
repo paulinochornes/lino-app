@@ -1,0 +1,22 @@
+{
+  "/_not-found/page": "/_not-found",
+  "/favicon.ico/route": "/favicon.ico",
+  "/admin/config/page": "/admin/config",
+  "/admin/pacientes/[id]/nueva-consulta/page": "/admin/pacientes/[id]/nueva-consulta",
+  "/admin/pacientes/[id]/page": "/admin/pacientes/[id]",
+  "/admin/pacientes/nuevo-paciente/page": "/admin/pacientes/nuevo-paciente",
+  "/admin/pacientes/page": "/admin/pacientes",
+  "/admin/page": "/admin",
+  "/admin/tips/page": "/admin/tips",
+  "/admin/tratamientos/page": "/admin/tratamientos",
+  "/admin/turnos/[id]/editar/page": "/admin/turnos/[id]/editar",
+  "/admin/turnos/nuevo-turno/page": "/admin/turnos/nuevo-turno",
+  "/admin/turnos/page": "/admin/turnos",
+  "/auth/page": "/auth",
+  "/certificaciones/page": "/certificaciones",
+  "/contacto/page": "/contacto",
+  "/page": "/",
+  "/quienes-somos/page": "/quienes-somos",
+  "/tips/page": "/tips",
+  "/tratamientos/page": "/tratamientos"
+}

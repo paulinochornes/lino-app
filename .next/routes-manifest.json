@@ -1,0 +1,168 @@
+{
+  "version": 3,
+  "pages404": true,
+  "caseSensitive": false,
+  "basePath": "",
+  "redirects": [
+    {
+      "source": "/:path+/",
+      "destination": "/:path+",
+      "internal": true,
+      "statusCode": 308,
+      "regex": "^(?:/((?:[^/]+?)(?:/(?:[^/]+?))*))/$"
+    }
+  ],
+  "headers": [],
+  "rewrites": {
+    "beforeFiles": [],
+    "afterFiles": [],
+    "fallback": []
+  },
+  "dynamicRoutes": [
+    {
+      "page": "/admin/pacientes/[id]",
+      "regex": "^/admin/pacientes/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/admin/pacientes/(?<nxtPid>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/admin/pacientes/[id]/nueva-consulta",
+      "regex": "^/admin/pacientes/([^/]+?)/nueva\\-consulta(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/admin/pacientes/(?<nxtPid>[^/]+?)/nueva\\-consulta(?:/)?$"
+    },
+    {
+      "page": "/admin/turnos/[id]/editar",
+      "regex": "^/admin/turnos/([^/]+?)/editar(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/admin/turnos/(?<nxtPid>[^/]+?)/editar(?:/)?$"
+    }
+  ],
+  "staticRoutes": [
+    {
+      "page": "/",
+      "regex": "^/(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/(?:/)?$"
+    },
+    {
+      "page": "/_not-found",
+      "regex": "^/_not\\-found(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/_not\\-found(?:/)?$"
+    },
+    {
+      "page": "/admin",
+      "regex": "^/admin(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin(?:/)?$"
+    },
+    {
+      "page": "/admin/config",
+      "regex": "^/admin/config(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/config(?:/)?$"
+    },
+    {
+      "page": "/admin/pacientes",
+      "regex": "^/admin/pacientes(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/pacientes(?:/)?$"
+    },
+    {
+      "page": "/admin/pacientes/nuevo-paciente",
+      "regex": "^/admin/pacientes/nuevo\\-paciente(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/pacientes/nuevo\\-paciente(?:/)?$"
+    },
+    {
+      "page": "/admin/tips",
+      "regex": "^/admin/tips(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/tips(?:/)?$"
+    },
+    {
+      "page": "/admin/tratamientos",
+      "regex": "^/admin/tratamientos(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/tratamientos(?:/)?$"
+    },
+    {
+      "page": "/admin/turnos",
+      "regex": "^/admin/turnos(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/turnos(?:/)?$"
+    },
+    {
+      "page": "/admin/turnos/nuevo-turno",
+      "regex": "^/admin/turnos/nuevo\\-turno(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/turnos/nuevo\\-turno(?:/)?$"
+    },
+    {
+      "page": "/auth",
+      "regex": "^/auth(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/auth(?:/)?$"
+    },
+    {
+      "page": "/certificaciones",
+      "regex": "^/certificaciones(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/certificaciones(?:/)?$"
+    },
+    {
+      "page": "/contacto",
+      "regex": "^/contacto(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/contacto(?:/)?$"
+    },
+    {
+      "page": "/favicon.ico",
+      "regex": "^/favicon\\.ico(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/favicon\\.ico(?:/)?$"
+    },
+    {
+      "page": "/quienes-somos",
+      "regex": "^/quienes\\-somos(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/quienes\\-somos(?:/)?$"
+    },
+    {
+      "page": "/tips",
+      "regex": "^/tips(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/tips(?:/)?$"
+    },
+    {
+      "page": "/tratamientos",
+      "regex": "^/tratamientos(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/tratamientos(?:/)?$"
+    }
+  ],
+  "dataRoutes": [],
+  "rsc": {
+    "header": "RSC",
+    "varyHeader": "RSC, Next-Router-State-Tree, Next-Router-Prefetch, Next-Router-Segment-Prefetch",
+    "prefetchHeader": "Next-Router-Prefetch",
+    "didPostponeHeader": "x-nextjs-postponed",
+    "contentTypeHeader": "text/x-component",
+    "suffix": ".rsc",
+    "prefetchSuffix": ".prefetch.rsc",
+    "prefetchSegmentHeader": "Next-Router-Segment-Prefetch",
+    "prefetchSegmentSuffix": ".segment.rsc",
+    "prefetchSegmentDirSuffix": ".segments"
+  },
+  "rewriteHeaders": {
+    "pathHeader": "x-nextjs-rewritten-path",
+    "queryHeader": "x-nextjs-rewritten-query"
+  }
+}
