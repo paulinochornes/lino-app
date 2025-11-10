@@ -1,3 +1,4 @@
+// src/app/admin/tratamientos/page.tsx
 'use client'
 
 import { useEffect, useState } from 'react'
@@ -7,165 +8,167 @@ import { Button } from '@/components/UI/Button'
 type Tratamiento = {
   id: string
   nombre: string
-  descripcion?: string
-  precio?: number
+  descripcion: string | null
+  categoria: string | null
+  duracion_minutos: number | null
+  precio_base: number | null
+  activo: boolean
 }
 
 export default function TratamientosPage() {
   const [tratamientos, setTratamientos] = useState<Tratamiento[]>([])
-  const [modoEdicion, setModoEdicion] = useState<string | null>(null)
-  const [form, setForm] = useState({
-    nombre: '',
-    descripcion: '',
-    precio: ''
-  })
+  const [nombre, setNombre] = useState('')
+  const [descripcion, setDescripcion] = useState('')
+  const [categoria, setCategoria] = useState('')
+  const [duracion, setDuracion] = useState<number | ''>('')
+  const [precio, setPrecio] = useState<number | ''>('')
   const [error, setError] = useState('')
+  const [mensaje, setMensaje] = useState('')
 
-  const fetchTratamientos = async () => {
+  const cargarTratamientos = async () => {
+    setError('')
     const { data, error } = await supabase
       .from('tratamientos')
-      .select('*')
-      .order('nombre', { ascending: true })
+      .select('id, nombre, descripcion, categoria, duracion_minutos, precio_base, activo')
+      .order('nombre')
 
-    if (error) console.error(error)
-    else setTratamientos(data)
+    if (error) {
+      setError(error.message)
+      return
+    }
+    setTratamientos(data || [])
   }
 
   useEffect(() => {
-    fetchTratamientos()
+    cargarTratamientos()
   }, [])
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target
-    setForm((prev) => ({ ...prev, [name]: value }))
-  }
-
-  const limpiarFormulario = () => {
-    setForm({ nombre: '', descripcion: '', precio: '' })
-    setModoEdicion(null)
-    setError('')
-  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    setError('')
+    setMensaje('')
 
-    if (!form.nombre) {
-      setError('El nombre es obligatorio.')
+    const { error } = await supabase.from('tratamientos').insert({
+      nombre,
+      descripcion: descripcion || null,
+      categoria: categoria || null,
+      duracion_minutos: duracion === '' ? null : duracion,
+      precio_base: precio === '' ? null : precio,
+      activo: true,
+    })
+
+    if (error) {
+      setError(error.message)
       return
     }
 
-    const payload = {
-      nombre: form.nombre,
-      descripcion: form.descripcion || null,
-      precio: form.precio ? parseFloat(form.precio) : null
-    }
-
-    let result
-    if (modoEdicion) {
-      result = await supabase.from('tratamientos').update(payload).eq('id', modoEdicion)
-    } else {
-      result = await supabase.from('tratamientos').insert(payload)
-    }
-
-    if (result.error) {
-      setError(result.error.message)
-    } else {
-      await fetchTratamientos()
-      limpiarFormulario()
-    }
+    setMensaje('Tratamiento creado.')
+    setNombre('')
+    setDescripcion('')
+    setCategoria('')
+    setDuracion('')
+    setPrecio('')
+    await cargarTratamientos()
   }
 
-  const handleEditar = (t: Tratamiento) => {
-    setModoEdicion(t.id)
-    setForm({
-      nombre: t.nombre,
-      descripcion: t.descripcion || '',
-      precio: t.precio?.toString() || ''
-    })
-  }
-
-  const handleEliminar = async (id: string) => {
-    if (!confirm('¿Eliminar este tratamiento?')) return
-    const { error } = await supabase.from('tratamientos').delete().eq('id', id)
-    if (error) {
-      alert('Error al eliminar')
-    } else {
-      await fetchTratamientos()
-    }
+  const toggleActivo = async (id: string, activo: boolean) => {
+    await supabase.from('tratamientos').update({ activo: !activo }).eq('id', id)
+    await cargarTratamientos()
   }
 
   return (
     <main className="min-h-screen p-6 bg-lino-fondo text-lino-texto">
-      <h1 className="text-2xl font-bold mb-6">🧴 Tratamientos</h1>
+      <h1 className="text-2xl font-bold mb-4">💆‍♀️ Tratamientos</h1>
 
-      <form onSubmit={handleSubmit} className="space-y-4 mb-8 max-w-md">
-        <div>
-          <label className="block mb-1 font-medium">Nombre *</label>
-          <input
-            name="nombre"
-            value={form.nombre}
-            onChange={handleChange}
-            className="w-full p-2 border border-lino-borde rounded"
-          />
+      <form onSubmit={handleSubmit} className="space-y-3 max-w-xl mb-8">
+        <h2 className="font-semibold">Nuevo tratamiento</h2>
+
+        <input
+          type="text"
+          placeholder="Nombre"
+          value={nombre}
+          onChange={(e) => setNombre(e.target.value)}
+          required
+          className="w-full border border-lino-borde rounded px-3 py-2 bg-white"
+        />
+
+        <input
+          type="text"
+          placeholder="Categoría (opcional)"
+          value={categoria}
+          onChange={(e) => setCategoria(e.target.value)}
+          className="w-full border border-lino-borde rounded px-3 py-2 bg-white"
+        />
+
+        <textarea
+          placeholder="Descripción (opcional)"
+          value={descripcion}
+          onChange={(e) => setDescripcion(e.target.value)}
+          className="w-full border border-lino-borde rounded px-3 py-2 bg-white"
+          rows={3}
+        />
+
+        <div className="grid grid-cols-2 gap-3">
+          <div>
+            <label className="block text-sm mb-1">Duración (min)</label>
+            <input
+              type="number"
+              min={0}
+              value={duracion}
+              onChange={(e) => setDuracion(e.target.value === '' ? '' : Number(e.target.value))}
+              className="w-full border border-lino-borde rounded px-3 py-2 bg-white"
+            />
+          </div>
+          <div>
+            <label className="block text-sm mb-1">Precio base</label>
+            <input
+              type="number"
+              min={0}
+              step="0.01"
+              value={precio}
+              onChange={(e) => setPrecio(e.target.value === '' ? '' : Number(e.target.value))}
+              className="w-full border border-lino-borde rounded px-3 py-2 bg-white"
+            />
+          </div>
         </div>
 
-        <div>
-          <label className="block mb-1 font-medium">Descripción</label>
-          <textarea
-            name="descripcion"
-            value={form.descripcion}
-            onChange={handleChange}
-            className="w-full p-2 border border-lino-borde rounded"
-          />
-        </div>
+        <Button type="submit">Guardar tratamiento</Button>
 
-        <div>
-          <label className="block mb-1 font-medium">Precio</label>
-          <input
-            name="precio"
-            type="number"
-            value={form.precio}
-            onChange={handleChange}
-            className="w-full p-2 border border-lino-borde rounded"
-            min="0"
-            step="0.01"
-          />
-        </div>
-
-        {error && <p className="text-red-600">{error}</p>}
-
-        <div className="flex gap-2">
-          <Button type="submit">
-            {modoEdicion ? '💾 Guardar cambios' : '➕ Agregar tratamiento'}
-          </Button>
-          {modoEdicion && (
-            <Button variant="secondary" type="button" onClick={limpiarFormulario}>
-              ❌ Cancelar edición
-            </Button>
-          )}
-        </div>
+        {mensaje && <p className="text-green-700 text-sm">{mensaje}</p>}
+        {error && <p className="text-red-600 text-sm">{error}</p>}
       </form>
 
-      <ul className="space-y-2">
-        {tratamientos.map((t) => (
-          <li
-            key={t.id}
-            className="p-4 bg-white border border-lino-borde rounded-xl flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2"
-          >
-            <div>
-              <strong>{t.nombre}</strong><br />
-              {t.descripcion && <span className="text-sm">{t.descripcion}</span>}<br />
-              {t.precio !== null && t.precio !== undefined && (
-                <span className="text-sm">💲 {t.precio.toFixed(2)}</span>
-              )}
+      <section className="max-w-3xl">
+        <h2 className="font-semibold mb-2">Listado</h2>
+        <div className="space-y-2">
+          {tratamientos.map((t) => (
+            <div
+              key={t.id}
+              className="border border-lino-borde rounded-xl px-3 py-2 flex justify-between items-center bg-white"
+            >
+              <div>
+                <div className="font-medium">
+                  {t.nombre}{' '}
+                  {t.duracion_minutos ? <span className="text-xs">({t.duracion_minutos} min)</span> : null}
+                </div>
+                {t.precio_base != null && (
+                  <div className="text-sm text-lino-texto/70">${t.precio_base.toFixed(2)}</div>
+                )}
+                {t.categoria && <div className="text-xs text-lino-texto/60">{t.categoria}</div>}
+              </div>
+              <button
+                type="button"
+                onClick={() => toggleActivo(t.id, t.activo)}
+                className={`text-xs px-2 py-1 rounded ${
+                  t.activo ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'
+                }`}
+              >
+                {t.activo ? 'Activo' : 'Inactivo'}
+              </button>
             </div>
-            <div className="flex gap-2">
-              <Button onClick={() => handleEditar(t)} variant="secondary">✏️ Editar</Button>
-              <Button onClick={() => handleEliminar(t.id)} variant="secondary">🗑️ Eliminar</Button>
-            </div>
-          </li>
-        ))}
-      </ul>
+          ))}
+        </div>
+      </section>
     </main>
   )
 }

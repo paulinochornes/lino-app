@@ -2,107 +2,175 @@
 
 import { useEffect, useState } from 'react'
 import { supabase } from '@/lib/supabaseBrowser'
-
+import Link from 'next/link'
 
 type Turno = {
   id: string
-  nombre: string
-  fecha: string
-  hora: string
-  senia: boolean
+  fecha_hora: string
+  estado: string
+  paciente: { nombre: string; apellido: string } | null
+  profesional: { full_name: string | null } | null
+  tratamiento: { nombre: string } | null
+}
+
+function formatDateTime(iso: string) {
+  const d = new Date(iso)
+  return d.toLocaleString('es-UY', {
+    day: '2-digit',
+    month: '2-digit',
+    year: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: false,
+  })
 }
 
 export default function TurnoList() {
   const [turnos, setTurnos] = useState<Turno[]>([])
-  const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
-  const [userId, setUserId] = useState<string | null>(null)
+  const [filtro, setFiltro] = useState('')
 
   useEffect(() => {
-    const fetchTurnos = async () => {
-      const {
-        data: { session },
-      } = await supabase.auth.getSession()
-
-      const uid = session?.user.id
-      setUserId(uid ?? null)
-
-
-      if (!uid) {
-        setError('No hay usuario autenticado.')
-        setLoading(false)
-        return
-      }
+    const cargarTurnos = async () => {
+      setError('')
 
       const { data, error } = await supabase
         .from('turnos')
-        .select('*')
-        .eq('user_id', uid)
-        .order('fecha', { ascending: true })
-        .order('hora', { ascending: true })
+        .select(
+          `
+          id,
+          fecha_hora,
+          estado,
+          paciente:pacientes ( nombre, apellido ),
+          profesional:profiles!profesional_id ( full_name ),
+          tratamiento:tratamientos ( nombre )
+        `,
+        )
+        .order('fecha_hora', { ascending: true })
 
       if (error) {
         setError(error.message)
-      } else {
-        setTurnos(data as Turno[])
+        return
       }
-      setLoading(false)
+
+      const normalizados: Turno[] =
+        data?.map((t: any) => ({
+          id: t.id,
+          fecha_hora: t.fecha_hora,
+          estado: t.estado,
+          paciente: t.paciente ?? null,
+          profesional: t.profesional ?? null,
+          tratamiento: t.tratamiento ?? null,
+        })) ?? []
+
+      setTurnos(normalizados)
     }
 
-    fetchTurnos()
+    cargarTurnos()
   }, [])
 
-  const handleDelete = async (id: string) => {
-    const confirm = window.confirm('¿Estás seguro que querés cancelar este turno?')
-    if (!confirm) return
+  const hoy = new Date()
+  const futuros = turnos.filter((t) => new Date(t.fecha_hora) >= hoy)
+  const pasados = turnos.filter((t) => new Date(t.fecha_hora) < hoy)
 
-    const { error } = await supabase.from('turnos').delete().eq('id', id)
-
-    if (error) {
-      alert('Error al eliminar el turno: ' + error.message)
-    } else {
-      setTurnos((prev) => prev.filter((t) => t.id !== id))
-    }
-  }
-
-  if (loading) return <p className="text-lino-texto">Cargando turnos...</p>
-  if (error) return <p className="text-red-600">{error}</p>
-  if (turnos.length === 0) return <p>No hay turnos agendados.</p>
+  const filtrar = (lista: Turno[]) =>
+    lista.filter((t) => {
+      const texto = `${t.paciente?.nombre ?? ''} ${t.paciente?.apellido ?? ''} ${t.tratamiento?.nombre ?? ''}`.toLowerCase()
+      return texto.includes(filtro.toLowerCase())
+    })
 
   return (
-    <div className="mt-10">
-      <h2 className="text-xl font-semibold mb-4 text-lino-encabezado">Turnos agendados</h2>
-      <div className="overflow-x-auto">
-        <table className="w-full text-sm border border-lino-borde bg-white">
-          <thead className="bg-lino-fondoSecundario text-lino-encabezado">
-            <tr>
-              <th className="py-2 px-4 text-left">Fecha</th>
-              <th className="py-2 px-4 text-left">Hora</th>
-              <th className="py-2 px-4 text-left">Paciente</th>
-              <th className="py-2 px-4 text-left">Seña</th>
-              <th className="py-2 px-4 text-left">Acciones</th>
-            </tr>
-          </thead>
-          <tbody>
-            {turnos.map((turno) => (
-              <tr key={turno.id} className="border-t border-lino-borde text-lino-texto">
-                <td className="py-2 px-4">{turno.fecha}</td>
-                <td className="py-2 px-4">{turno.hora}</td>
-                <td className="py-2 px-4">{turno.nombre}</td>
-                <td className="py-2 px-4">{turno.senia ? 'Sí' : 'No'}</td>
-                <td className="py-2 px-4">
-                  <button
-                    onClick={() => handleDelete(turno.id)}
-                    className="text-red-600 hover:underline"
-                  >
-                    Cancelar
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+    <section className="space-y-4">
+      {error && <p className="text-red-600 text-sm mb-2">{error}</p>}
+
+      <input
+        type="text"
+        placeholder="Buscar por paciente o tratamiento..."
+        value={filtro}
+        onChange={(e) => setFiltro(e.target.value)}
+        className="w-full border border-lino-borde rounded-xl px-3 py-2 bg-white text-sm"
+      />
+
+      {/* Turnos próximos */}
+      <div>
+        <h2 className="text-lg font-semibold mt-4 mb-2">Próximos turnos</h2>
+        {filtrar(futuros).length === 0 ? (
+          <p className="text-sm text-lino-texto/70">No hay turnos próximos.</p>
+        ) : (
+          filtrar(futuros).map((t) => (
+            <div
+              key={t.id}
+              className="border border-lino-borde rounded-xl px-3 py-2 flex justify-between items-center bg-white"
+            >
+              <div>
+                <div className="font-medium">
+                  {t.paciente
+                    ? `${t.paciente.nombre} ${t.paciente.apellido}`
+                    : 'Sin paciente'}
+                </div>
+                <div className="text-sm text-lino-texto/70">
+                  {formatDateTime(t.fecha_hora)}
+                </div>
+                {t.tratamiento && (
+                  <div className="text-xs text-lino-texto/60">
+                    💆 {t.tratamiento.nombre}
+                  </div>
+                )}
+                {t.profesional && (
+                  <div className="text-xs text-lino-texto/60">
+                    👩‍⚕️ {t.profesional.full_name || 'Sin profesional'}
+                  </div>
+                )}
+              </div>
+              <div className="flex items-center gap-3">
+                <span className="text-xs px-2 py-1 rounded bg-lino-fondo text-lino-texto/80">
+                  {t.estado}
+                </span>
+                <Link
+                  href={`/admin/turnos/${t.id}/editar`}
+                  className="text-xs underline text-lino-acento"
+                >
+                  Editar
+                </Link>
+              </div>
+            </div>
+          ))
+        )}
       </div>
-    </div>
+
+      {/* Turnos pasados */}
+      <details className="mt-6">
+        <summary className="cursor-pointer text-sm text-lino-texto/70">
+          Mostrar turnos pasados ({pasados.length})
+        </summary>
+        <div className="mt-2 space-y-2">
+          {filtrar(pasados).map((t) => (
+            <div
+              key={t.id}
+              className="border border-lino-borde rounded-xl px-3 py-2 flex justify-between items-center bg-lino-fondo-secundario"
+            >
+              <div>
+                <div className="font-medium">
+                  {t.paciente
+                    ? `${t.paciente.nombre} ${t.paciente.apellido}`
+                    : 'Sin paciente'}
+                </div>
+                <div className="text-sm text-lino-texto/70">
+                  {formatDateTime(t.fecha_hora)}
+                </div>
+                {t.tratamiento && (
+                  <div className="text-xs text-lino-texto/60">
+                    💆 {t.tratamiento.nombre}
+                  </div>
+                )}
+              </div>
+              <span className="text-xs px-2 py-1 rounded bg-gray-100 text-gray-600">
+                {t.estado}
+              </span>
+            </div>
+          ))}
+        </div>
+      </details>
+    </section>
   )
 }
