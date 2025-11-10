@@ -78,6 +78,30 @@
         "x-next-revalidate-tag-token"
       ]
     },
+    "/admin/pacientes": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "Next-Action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/admin/pacientes",
+      "dataRoute": "/admin/pacientes.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
     "/admin": {
       "experimentalBypassFor": [
         {
@@ -102,7 +126,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/admin/pacientes": {
+    "/admin/tips": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -115,8 +139,8 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/admin/pacientes",
-      "dataRoute": "/admin/pacientes.rsc",
+      "srcRoute": "/admin/tips",
+      "dataRoute": "/admin/tips.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -165,30 +189,6 @@
       "initialRevalidateSeconds": false,
       "srcRoute": "/admin/turnos/nuevo-turno",
       "dataRoute": "/admin/turnos/nuevo-turno.rsc",
-      "allowHeader": [
-        "host",
-        "x-matched-path",
-        "x-prerender-revalidate",
-        "x-prerender-revalidate-if-generated",
-        "x-next-revalidated-tags",
-        "x-next-revalidate-tag-token"
-      ]
-    },
-    "/admin/tips": {
-      "experimentalBypassFor": [
-        {
-          "type": "header",
-          "key": "Next-Action"
-        },
-        {
-          "type": "header",
-          "key": "content-type",
-          "value": "multipart/form-data;.*"
-        }
-      ],
-      "initialRevalidateSeconds": false,
-      "srcRoute": "/admin/tips",
-      "dataRoute": "/admin/tips.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -318,30 +318,6 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/tips": {
-      "experimentalBypassFor": [
-        {
-          "type": "header",
-          "key": "Next-Action"
-        },
-        {
-          "type": "header",
-          "key": "content-type",
-          "value": "multipart/form-data;.*"
-        }
-      ],
-      "initialRevalidateSeconds": false,
-      "srcRoute": "/tips",
-      "dataRoute": "/tips.rsc",
-      "allowHeader": [
-        "host",
-        "x-matched-path",
-        "x-prerender-revalidate",
-        "x-prerender-revalidate-if-generated",
-        "x-next-revalidated-tags",
-        "x-next-revalidate-tag-token"
-      ]
-    },
     "/tratamientos": {
       "experimentalBypassFor": [
         {
@@ -357,6 +333,30 @@
       "initialRevalidateSeconds": false,
       "srcRoute": "/tratamientos",
       "dataRoute": "/tratamientos.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/tips": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "Next-Action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/tips",
+      "dataRoute": "/tips.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -394,8 +394,8 @@
   "dynamicRoutes": {},
   "notFoundRoutes": [],
   "preview": {
-    "previewModeId": "463b1987f747be42929109541746a422",
-    "previewModeSigningKey": "0162cf401afefb670918e257e5616bb0755717b11792541369ba732387c861e9",
-    "previewModeEncryptionKey": "765c559390cc9c2b17a9e9b54300a2f56c96958baba9433bed9466ef3c6ef923"
+    "previewModeId": "46c926bb6cd00442052af38d4772342d",
+    "previewModeSigningKey": "592dba26c93e4c13ce806ab3a511c176e334511bf4ef7c22d9a0b27acfe71a37",
+    "previewModeEncryptionKey": "d2a64ef3580cf9df62275c901568d2d11d0ecc50401fae66d7d547ffa6f21145"
   }
 }

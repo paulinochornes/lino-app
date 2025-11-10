@@ -1,4 +1,4 @@
-// File: /Users/paulinocollazohornes/Documents/lino-app/src/app/admin/turnos/page.tsx
+// File: /Users/paulinocollazohornes/Documents/GitHub/lino-app/src/app/admin/turnos/page.tsx
 import * as entry from '../../../../../src/app/admin/turnos/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

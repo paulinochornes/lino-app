@@ -15,18 +15,30 @@ interface Paciente {
   email: string | null
 }
 
+interface Tratamiento {
+  nombre: string
+}
+
 interface Turno {
   id: string
   fecha_hora: string
   estado: string
-  tratamiento: { nombre: string } | null
+  tratamiento: Tratamiento | null
+}
+
+interface ConsultaTratamiento {
+  tratamiento: Tratamiento
+}
+
+interface Profesional {
+  full_name: string | null
 }
 
 interface Consulta {
   id: string
   fecha: string
-  profesional: { full_name: string } | null
-  tratamientos: { tratamiento: { nombre: string } }[]
+  profesional: Profesional | null
+  tratamientos: ConsultaTratamiento[]
   notas: string | null
 }
 
@@ -66,15 +78,26 @@ export default function PacientePage() {
 
         if (turnosError) throw turnosError
 
-        const turnosAdaptados =
-          turnosData?.map((t: any) => ({
-            id: t.id,
-            fecha_hora: t.fecha_hora,
-            estado: t.estado,
-            tratamiento: t.tratamientos
-              ? { nombre: t.tratamientos.nombre }
-              : null,
-          })) || []
+        const turnosAdaptados: Turno[] =
+          ((turnosData as unknown) as {
+            id: string
+            fecha_hora: string
+            estado: string
+            tratamientos: { nombre: string } | { nombre: string }[] | null
+          }[] | null)?.map((t) => {
+            let tratamiento: Tratamiento | null = null
+            if (Array.isArray(t.tratamientos) && t.tratamientos.length > 0) {
+              tratamiento = { nombre: t.tratamientos[0].nombre }
+            } else if (t.tratamientos && !Array.isArray(t.tratamientos)) {
+              tratamiento = { nombre: t.tratamientos.nombre }
+            }
+            return {
+              id: t.id,
+              fecha_hora: t.fecha_hora,
+              estado: t.estado,
+              tratamiento,
+            }
+          }) ?? []
 
         setTurnos(turnosAdaptados)
 
@@ -93,29 +116,35 @@ export default function PacientePage() {
 
         if (consultasError) throw consultasError
 
-        const consultasAdaptadas =
-          consultasData?.map((c: any) => ({
+        const consultasAdaptadas: Consulta[] =
+          ((consultasData as unknown) as {
+            id: string
+            fecha: string
+            notas: string | null
+            profiles: { full_name: string | null } | null
+            consulta_tratamientos:
+              | { tratamientos: { nombre: string } | null }[]
+              | null
+          }[] | null)?.map((c) => ({
             id: c.id,
             fecha: c.fecha,
-            profesional: { full_name: c.profiles?.full_name || null },
+            profesional: c.profiles ? { full_name: c.profiles.full_name } : null,
             notas: c.notas,
             tratamientos:
-              c.consulta_tratamientos?.map((ct: any) => ({
-                tratamiento: {
-                  nombre: ct.tratamientos?.nombre || 'Sin nombre',
-                },
-              })) || [],
-          })) || []
+              c.consulta_tratamientos?.map((ct) => ({
+                tratamiento: { nombre: ct.tratamientos?.nombre || 'Sin nombre' },
+              })) ?? [],
+          })) ?? []
 
         setConsultas(consultasAdaptadas)
-      } catch (e: any) {
-        console.error('Error al cargar datos del paciente:', e.message)
+      } catch (e) {
+        console.error('Error al cargar datos del paciente:', e)
       } finally {
         setLoading(false)
       }
     }
 
-    cargarDatos()
+    void cargarDatos()
   }, [id])
 
   if (loading) return <p className="p-6">Cargando datos...</p>

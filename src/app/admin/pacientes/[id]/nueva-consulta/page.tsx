@@ -28,8 +28,9 @@ type Paciente = {
   apellido: string
 }
 
-export default function NuevaConsultaPage({ params }: { params: { id: string } }) {
-  const pacienteId = params.id
+// 👇 Eliminamos tipado explícito de la firma para evitar el error PageProps
+export default function NuevaConsultaPage(props: any) {
+  const pacienteId = props?.params?.id as string
   const router = useRouter()
 
   const [paciente, setPaciente] = useState<Paciente | null>(null)
@@ -108,7 +109,7 @@ export default function NuevaConsultaPage({ params }: { params: { id: string } }
       setTurnos(turnosData || [])
     }
 
-    cargarDatos()
+    void cargarDatos()
   }, [pacienteId])
 
   const toggleTratamiento = (id: string) => {
@@ -127,7 +128,7 @@ export default function NuevaConsultaPage({ params }: { params: { id: string } }
       return
     }
 
-    // 1) crear consulta
+    // 1) Crear consulta
     const { data: consulta, error: consultaError } = await supabase
       .from('consultas')
       .insert({
@@ -148,7 +149,7 @@ export default function NuevaConsultaPage({ params }: { params: { id: string } }
       return
     }
 
-    // 2) crear consulta_tratamientos
+    // 2) Crear consulta_tratamientos
     if (tratamientosSeleccionados.length > 0) {
       const filas = tratamientosSeleccionados.map((id) => {
         const base = tratamientos.find((t) => t.id === id)
@@ -177,7 +178,10 @@ export default function NuevaConsultaPage({ params }: { params: { id: string } }
       <h1 className="text-2xl font-bold mb-4">📝 Nueva consulta</h1>
       {paciente && (
         <p className="mb-4 text-sm">
-          Paciente: <span className="font-semibold">{paciente.nombre} {paciente.apellido}</span>
+          Paciente:{' '}
+          <span className="font-semibold">
+            {paciente.nombre} {paciente.apellido}
+          </span>
         </p>
       )}
 

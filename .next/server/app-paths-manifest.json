@@ -2,6 +2,7 @@
   "/_not-found/page": "app/_not-found/page.js",
   "/favicon.ico/route": "app/favicon.ico/route.js",
   "/admin/config/page": "app/admin/config/page.js",
+  "/admin/pacientes/[id]/editar/page": "app/admin/pacientes/[id]/editar/page.js",
   "/admin/pacientes/[id]/nueva-consulta/page": "app/admin/pacientes/[id]/nueva-consulta/page.js",
   "/admin/pacientes/[id]/page": "app/admin/pacientes/[id]/page.js",
   "/admin/pacientes/nuevo-paciente/page": "app/admin/pacientes/nuevo-paciente/page.js",

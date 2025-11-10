@@ -96,7 +96,7 @@
         "transform": "lodash/{{member}}"
       }
     },
-    "outputFileTracingRoot": "/Users/paulinocollazohornes/Documents/lino-app",
+    "outputFileTracingRoot": "/Users/paulinocollazohornes/Documents/GitHub/lino-app",
     "experimental": {
       "useSkewCookie": false,
       "nodeMiddleware": false,
@@ -288,10 +288,10 @@
     "bundlePagesRouterDependencies": false,
     "configFileName": "next.config.ts",
     "turbopack": {
-      "root": "/Users/paulinocollazohornes/Documents/lino-app"
+      "root": "/Users/paulinocollazohornes/Documents/GitHub/lino-app"
     }
   },
-  "appDir": "/Users/paulinocollazohornes/Documents/lino-app",
+  "appDir": "/Users/paulinocollazohornes/Documents/GitHub/lino-app",
   "relativeAppDir": "",
   "files": [
     ".next/routes-manifest.json",

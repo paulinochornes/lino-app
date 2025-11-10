@@ -2,6 +2,7 @@
   "/_not-found/page": "/_not-found",
   "/favicon.ico/route": "/favicon.ico",
   "/admin/config/page": "/admin/config",
+  "/admin/pacientes/[id]/editar/page": "/admin/pacientes/[id]/editar",
   "/admin/pacientes/[id]/nueva-consulta/page": "/admin/pacientes/[id]/nueva-consulta",
   "/admin/pacientes/[id]/page": "/admin/pacientes/[id]",
   "/admin/pacientes/nuevo-paciente/page": "/admin/pacientes/nuevo-paciente",

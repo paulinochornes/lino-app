@@ -4,154 +4,164 @@
       "static/chunks/webpack-b9a91bdf03ccb87a.js",
       "static/chunks/4bd1b696-cf72ae8a39fa05aa.js",
       "static/chunks/964-02efbd2195ef91bd.js",
-      "static/chunks/main-app-b8fd5a99433a5fdb.js",
-      "static/chunks/app/_not-found/page-3a8207e877f02d81.js"
+      "static/chunks/main-app-cadce8bf86a7b7fc.js",
+      "static/chunks/app/_not-found/page-85b029a8b1e3e0c9.js"
     ],
     "/layout": [
       "static/chunks/webpack-b9a91bdf03ccb87a.js",
       "static/chunks/4bd1b696-cf72ae8a39fa05aa.js",
       "static/chunks/964-02efbd2195ef91bd.js",
-      "static/chunks/main-app-b8fd5a99433a5fdb.js",
-      "static/css/b0eb5999f149fa09.css",
+      "static/chunks/main-app-cadce8bf86a7b7fc.js",
+      "static/css/50400bec5cb63c26.css",
       "static/chunks/874-437a265a67d6cfee.js",
-      "static/chunks/app/layout-40df8e25299fdc2c.js"
+      "static/chunks/app/layout-5fd61d2b1bd28194.js"
     ],
     "/admin/config/page": [
       "static/chunks/webpack-b9a91bdf03ccb87a.js",
       "static/chunks/4bd1b696-cf72ae8a39fa05aa.js",
       "static/chunks/964-02efbd2195ef91bd.js",
-      "static/chunks/main-app-b8fd5a99433a5fdb.js",
-      "static/chunks/app/admin/config/page-dae2f47414b2d7ba.js"
+      "static/chunks/main-app-cadce8bf86a7b7fc.js",
+      "static/chunks/647-ca273b94eb959ed3.js",
+      "static/chunks/app/admin/config/page-09404681e52e7ac2.js"
+    ],
+    "/admin/pacientes/[id]/editar/page": [
+      "static/chunks/webpack-b9a91bdf03ccb87a.js",
+      "static/chunks/4bd1b696-cf72ae8a39fa05aa.js",
+      "static/chunks/964-02efbd2195ef91bd.js",
+      "static/chunks/main-app-cadce8bf86a7b7fc.js",
+      "static/chunks/647-ca273b94eb959ed3.js",
+      "static/chunks/app/admin/pacientes/[id]/editar/page-e9b1596ab550317e.js"
     ],
     "/admin/pacientes/[id]/nueva-consulta/page": [
       "static/chunks/webpack-b9a91bdf03ccb87a.js",
       "static/chunks/4bd1b696-cf72ae8a39fa05aa.js",
       "static/chunks/964-02efbd2195ef91bd.js",
-      "static/chunks/main-app-b8fd5a99433a5fdb.js",
+      "static/chunks/main-app-cadce8bf86a7b7fc.js",
       "static/chunks/647-ca273b94eb959ed3.js",
-      "static/chunks/app/admin/pacientes/[id]/nueva-consulta/page-5acfa0a5c4b6883a.js"
+      "static/chunks/app/admin/pacientes/[id]/nueva-consulta/page-09d85c5e6b598de1.js"
     ],
     "/admin/pacientes/[id]/page": [
       "static/chunks/webpack-b9a91bdf03ccb87a.js",
       "static/chunks/4bd1b696-cf72ae8a39fa05aa.js",
       "static/chunks/964-02efbd2195ef91bd.js",
-      "static/chunks/main-app-b8fd5a99433a5fdb.js",
+      "static/chunks/main-app-cadce8bf86a7b7fc.js",
       "static/chunks/647-ca273b94eb959ed3.js",
       "static/chunks/874-437a265a67d6cfee.js",
-      "static/chunks/app/admin/pacientes/[id]/page-42bf26c7df5773a9.js"
+      "static/chunks/app/admin/pacientes/[id]/page-ef6327dd56ede465.js"
     ],
     "/admin/pacientes/nuevo-paciente/page": [
       "static/chunks/webpack-b9a91bdf03ccb87a.js",
       "static/chunks/4bd1b696-cf72ae8a39fa05aa.js",
       "static/chunks/964-02efbd2195ef91bd.js",
-      "static/chunks/main-app-b8fd5a99433a5fdb.js",
+      "static/chunks/main-app-cadce8bf86a7b7fc.js",
       "static/chunks/647-ca273b94eb959ed3.js",
-      "static/chunks/app/admin/pacientes/nuevo-paciente/page-98d57fbdaa9ca568.js"
+      "static/chunks/app/admin/pacientes/nuevo-paciente/page-c026b4a3b434e8af.js"
     ],
     "/admin/pacientes/page": [
       "static/chunks/webpack-b9a91bdf03ccb87a.js",
       "static/chunks/4bd1b696-cf72ae8a39fa05aa.js",
       "static/chunks/964-02efbd2195ef91bd.js",
-      "static/chunks/main-app-b8fd5a99433a5fdb.js",
+      "static/chunks/main-app-cadce8bf86a7b7fc.js",
       "static/chunks/647-ca273b94eb959ed3.js",
-      "static/chunks/app/admin/pacientes/page-5eed50be535a0be2.js"
+      "static/chunks/app/admin/pacientes/page-016e731cab9c9f4e.js"
     ],
     "/admin/page": [
       "static/chunks/webpack-b9a91bdf03ccb87a.js",
       "static/chunks/4bd1b696-cf72ae8a39fa05aa.js",
       "static/chunks/964-02efbd2195ef91bd.js",
-      "static/chunks/main-app-b8fd5a99433a5fdb.js",
-      "static/chunks/app/admin/page-1059dac693157e05.js"
+      "static/chunks/main-app-cadce8bf86a7b7fc.js",
+      "static/chunks/app/admin/page-8dc2a51f50224e36.js"
     ],
     "/admin/tips/page": [
       "static/chunks/webpack-b9a91bdf03ccb87a.js",
       "static/chunks/4bd1b696-cf72ae8a39fa05aa.js",
       "static/chunks/964-02efbd2195ef91bd.js",
-      "static/chunks/main-app-b8fd5a99433a5fdb.js",
+      "static/chunks/main-app-cadce8bf86a7b7fc.js",
       "static/chunks/874-437a265a67d6cfee.js",
-      "static/chunks/app/admin/tips/page-2fad8866b29e123e.js"
+      "static/chunks/app/admin/tips/page-141baef03390068b.js"
     ],
     "/admin/tratamientos/page": [
       "static/chunks/webpack-b9a91bdf03ccb87a.js",
       "static/chunks/4bd1b696-cf72ae8a39fa05aa.js",
       "static/chunks/964-02efbd2195ef91bd.js",
-      "static/chunks/main-app-b8fd5a99433a5fdb.js",
+      "static/chunks/main-app-cadce8bf86a7b7fc.js",
       "static/chunks/647-ca273b94eb959ed3.js",
-      "static/chunks/app/admin/tratamientos/page-59f020aa6b41b6fb.js"
+      "static/chunks/app/admin/tratamientos/page-f25b3e037f839575.js"
     ],
     "/admin/turnos/[id]/editar/page": [
       "static/chunks/webpack-b9a91bdf03ccb87a.js",
       "static/chunks/4bd1b696-cf72ae8a39fa05aa.js",
       "static/chunks/964-02efbd2195ef91bd.js",
-      "static/chunks/main-app-b8fd5a99433a5fdb.js",
+      "static/chunks/main-app-cadce8bf86a7b7fc.js",
       "static/chunks/647-ca273b94eb959ed3.js",
-      "static/chunks/app/admin/turnos/[id]/editar/page-d686e1bdcf249b4d.js"
+      "static/chunks/app/admin/turnos/[id]/editar/page-23ed2b4fd38b7489.js"
     ],
     "/admin/turnos/nuevo-turno/page": [
       "static/chunks/webpack-b9a91bdf03ccb87a.js",
       "static/chunks/4bd1b696-cf72ae8a39fa05aa.js",
       "static/chunks/964-02efbd2195ef91bd.js",
-      "static/chunks/main-app-b8fd5a99433a5fdb.js",
+      "static/chunks/main-app-cadce8bf86a7b7fc.js",
       "static/chunks/647-ca273b94eb959ed3.js",
-      "static/chunks/app/admin/turnos/nuevo-turno/page-9395cc64345fdc8e.js"
+      "static/chunks/app/admin/turnos/nuevo-turno/page-7a4506f68c216f4f.js"
     ],
     "/admin/turnos/page": [
       "static/chunks/webpack-b9a91bdf03ccb87a.js",
       "static/chunks/4bd1b696-cf72ae8a39fa05aa.js",
       "static/chunks/964-02efbd2195ef91bd.js",
-      "static/chunks/main-app-b8fd5a99433a5fdb.js",
+      "static/chunks/main-app-cadce8bf86a7b7fc.js",
       "static/chunks/647-ca273b94eb959ed3.js",
-      "static/chunks/app/admin/turnos/page-22b83fc06b2af549.js"
+      "static/chunks/874-437a265a67d6cfee.js",
+      "static/chunks/app/admin/turnos/page-81496545d5cf703c.js"
     ],
     "/auth/page": [
       "static/chunks/webpack-b9a91bdf03ccb87a.js",
       "static/chunks/4bd1b696-cf72ae8a39fa05aa.js",
       "static/chunks/964-02efbd2195ef91bd.js",
-      "static/chunks/main-app-b8fd5a99433a5fdb.js",
+      "static/chunks/main-app-cadce8bf86a7b7fc.js",
       "static/chunks/647-ca273b94eb959ed3.js",
-      "static/chunks/app/auth/page-7fb58f691750b46d.js"
+      "static/chunks/app/auth/page-25a025007e9b6f05.js"
     ],
     "/certificaciones/page": [
       "static/chunks/webpack-b9a91bdf03ccb87a.js",
       "static/chunks/4bd1b696-cf72ae8a39fa05aa.js",
       "static/chunks/964-02efbd2195ef91bd.js",
-      "static/chunks/main-app-b8fd5a99433a5fdb.js",
-      "static/chunks/app/certificaciones/page-dae2f47414b2d7ba.js"
+      "static/chunks/main-app-cadce8bf86a7b7fc.js",
+      "static/chunks/app/certificaciones/page-67150e28dbcd7783.js"
     ],
     "/contacto/page": [
       "static/chunks/webpack-b9a91bdf03ccb87a.js",
       "static/chunks/4bd1b696-cf72ae8a39fa05aa.js",
       "static/chunks/964-02efbd2195ef91bd.js",
-      "static/chunks/main-app-b8fd5a99433a5fdb.js",
-      "static/chunks/app/contacto/page-dae2f47414b2d7ba.js"
+      "static/chunks/main-app-cadce8bf86a7b7fc.js",
+      "static/chunks/app/contacto/page-67150e28dbcd7783.js"
     ],
     "/page": [
       "static/chunks/webpack-b9a91bdf03ccb87a.js",
       "static/chunks/4bd1b696-cf72ae8a39fa05aa.js",
       "static/chunks/964-02efbd2195ef91bd.js",
-      "static/chunks/main-app-b8fd5a99433a5fdb.js",
-      "static/chunks/app/page-dae2f47414b2d7ba.js"
+      "static/chunks/main-app-cadce8bf86a7b7fc.js",
+      "static/chunks/app/page-67150e28dbcd7783.js"
     ],
     "/quienes-somos/page": [
       "static/chunks/webpack-b9a91bdf03ccb87a.js",
       "static/chunks/4bd1b696-cf72ae8a39fa05aa.js",
       "static/chunks/964-02efbd2195ef91bd.js",
-      "static/chunks/main-app-b8fd5a99433a5fdb.js",
-      "static/chunks/app/quienes-somos/page-dae2f47414b2d7ba.js"
+      "static/chunks/main-app-cadce8bf86a7b7fc.js",
+      "static/chunks/app/quienes-somos/page-67150e28dbcd7783.js"
     ],
     "/tips/page": [
       "static/chunks/webpack-b9a91bdf03ccb87a.js",
       "static/chunks/4bd1b696-cf72ae8a39fa05aa.js",
       "static/chunks/964-02efbd2195ef91bd.js",
-      "static/chunks/main-app-b8fd5a99433a5fdb.js",
-      "static/chunks/app/tips/page-dae2f47414b2d7ba.js"
+      "static/chunks/main-app-cadce8bf86a7b7fc.js",
+      "static/chunks/app/tips/page-67150e28dbcd7783.js"
     ],
     "/tratamientos/page": [
       "static/chunks/webpack-b9a91bdf03ccb87a.js",
       "static/chunks/4bd1b696-cf72ae8a39fa05aa.js",
       "static/chunks/964-02efbd2195ef91bd.js",
-      "static/chunks/main-app-b8fd5a99433a5fdb.js",
-      "static/chunks/app/tratamientos/page-dae2f47414b2d7ba.js"
+      "static/chunks/main-app-cadce8bf86a7b7fc.js",
+      "static/chunks/app/tratamientos/page-67150e28dbcd7783.js"
     ]
   }
 }

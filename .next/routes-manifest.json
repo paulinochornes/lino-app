@@ -28,6 +28,14 @@
       "namedRegex": "^/admin/pacientes/(?<nxtPid>[^/]+?)(?:/)?$"
     },
     {
+      "page": "/admin/pacientes/[id]/editar",
+      "regex": "^/admin/pacientes/([^/]+?)/editar(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/admin/pacientes/(?<nxtPid>[^/]+?)/editar(?:/)?$"
+    },
+    {
       "page": "/admin/pacientes/[id]/nueva-consulta",
       "regex": "^/admin/pacientes/([^/]+?)/nueva\\-consulta(?:/)?$",
       "routeKeys": {

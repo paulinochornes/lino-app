@@ -4,13 +4,27 @@ import { useEffect, useState } from 'react'
 import { supabase } from '@/lib/supabaseBrowser'
 import Link from 'next/link'
 
-type Turno = {
+// Tipos basados en lo que devuelve tu consulta
+interface Paciente {
+  nombre: string
+  apellido: string
+}
+
+interface Profesional {
+  full_name: string | null
+}
+
+interface Tratamiento {
+  nombre: string
+}
+
+interface Turno {
   id: string
   fecha_hora: string
   estado: string
-  paciente: { nombre: string; apellido: string } | null
-  profesional: { full_name: string | null } | null
-  tratamiento: { nombre: string } | null
+  paciente: Paciente | null
+  profesional: Profesional | null
+  tratamiento: Tratamiento | null
 }
 
 function formatDateTime(iso: string) {
@@ -27,8 +41,8 @@ function formatDateTime(iso: string) {
 
 export default function TurnoList() {
   const [turnos, setTurnos] = useState<Turno[]>([])
-  const [error, setError] = useState('')
-  const [filtro, setFiltro] = useState('')
+  const [error, setError] = useState<string>('')
+  const [filtro, setFiltro] = useState<string>('')
 
   useEffect(() => {
     const cargarTurnos = async () => {
@@ -36,16 +50,14 @@ export default function TurnoList() {
 
       const { data, error } = await supabase
         .from('turnos')
-        .select(
-          `
+        .select(`
           id,
           fecha_hora,
           estado,
           paciente:pacientes ( nombre, apellido ),
           profesional:profiles!profesional_id ( full_name ),
           tratamiento:tratamientos ( nombre )
-        `,
-        )
+        `)
         .order('fecha_hora', { ascending: true })
 
       if (error) {
@@ -53,20 +65,32 @@ export default function TurnoList() {
         return
       }
 
-      const normalizados: Turno[] =
-        data?.map((t: any) => ({
-          id: t.id,
-          fecha_hora: t.fecha_hora,
-          estado: t.estado,
-          paciente: t.paciente ?? null,
-          profesional: t.profesional ?? null,
-          tratamiento: t.tratamiento ?? null,
-        })) ?? []
+      if (!data) {
+        setTurnos([])
+        return
+      }
+
+      // Tipamos correctamente cada fila devuelta
+      const normalizados: Turno[] = (data as unknown as {
+        id: string
+        fecha_hora: string
+        estado: string
+        paciente: Paciente | null
+        profesional: Profesional | null
+        tratamiento: Tratamiento | null
+      }[]).map((t) => ({
+        id: t.id,
+        fecha_hora: t.fecha_hora,
+        estado: t.estado,
+        paciente: t.paciente ?? null,
+        profesional: t.profesional ?? null,
+        tratamiento: t.tratamiento ?? null,
+      }))
 
       setTurnos(normalizados)
     }
 
-    cargarTurnos()
+    void cargarTurnos()
   }, [])
 
   const hoy = new Date()

@@ -1,34 +1,32 @@
-// src/app/admin/turnos/[id]/editar/page.tsx
 'use client'
-
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { supabase } from '@/lib/supabaseBrowser'
 import { Button } from '@/components/UI/Button'
 
-type Paciente = {
+interface Paciente {
   id: string
   nombre: string
   apellido: string
 }
 
-type Tratamiento = {
+interface Tratamiento {
   id: string
   nombre: string
   duracion_minutos: number | null
 }
 
-type Profesional = {
+interface Profesional {
   id: string
   full_name: string | null
 }
 
-type Sala = {
+interface Sala {
   id: string
   nombre: string
 }
 
-type HorarioSlot = {
+interface HorarioSlot {
   hora_inicio: string
   hora_fin: string
 }
@@ -50,8 +48,9 @@ function toDateInputValue(iso: string) {
   return `${year}-${month}-${day}`
 }
 
-export default function EditarTurnoPage({ params }: { params: { id: string } }) {
-  const turnoId = params.id
+// 👇 esta versión evita el error de PageProps
+export default function EditarTurnoPage(props: any) {
+  const turnoId = props?.params?.id as string
   const router = useRouter()
 
   const [pacientes, setPacientes] = useState<Paciente[]>([])
@@ -81,7 +80,6 @@ export default function EditarTurnoPage({ params }: { params: { id: string } }) 
       setError('')
       setCargando(true)
 
-      // turno
       const { data: turno, error: errTurno } = await supabase
         .from('turnos')
         .select('id, paciente_id, tratamiento_id, profesional_id, sala_id, fecha_hora, estado, notas')
@@ -94,7 +92,6 @@ export default function EditarTurnoPage({ params }: { params: { id: string } }) 
         return
       }
 
-      // catálogos
       const { data: pac, error: errPac } = await supabase
         .from('pacientes')
         .select('id, nombre, apellido')
@@ -160,7 +157,7 @@ export default function EditarTurnoPage({ params }: { params: { id: string } }) 
       setCargando(false)
     }
 
-    cargarTurnoYDatos()
+    void cargarTurnoYDatos()
   }, [turnoId])
 
   useEffect(() => {
@@ -186,7 +183,6 @@ export default function EditarTurnoPage({ params }: { params: { id: string } }) 
 
       let slots: HorarioSlot[] = data || []
 
-      // asegurar que el horario original aparezca como opción
       if (horaOriginal && fecha === toDateInputValue(horaOriginal)) {
         const yaExiste = slots.some((s) => s.hora_inicio === horaOriginal)
         if (!yaExiste) {
@@ -198,7 +194,7 @@ export default function EditarTurnoPage({ params }: { params: { id: string } }) 
       setHorariosDisponibles(slots)
     }
 
-    cargarHorarios()
+    void cargarHorarios()
   }, [fecha, tratamientoId, profesionalId, salaId, horaOriginal])
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -364,9 +360,7 @@ export default function EditarTurnoPage({ params }: { params: { id: string } }) 
           <label className="block mb-1">Estado</label>
           <select
             value={estado}
-            onChange={(e) =>
-              setEstado(e.target.value as typeof estado)
-            }
+            onChange={(e) => setEstado(e.target.value as typeof estado)}
             className="w-full border border-lino-borde rounded px-3 py-2 bg-white"
           >
             <option value="pendiente">Pendiente</option>

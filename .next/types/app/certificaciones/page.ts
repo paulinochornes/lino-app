@@ -1,4 +1,4 @@
-// File: /Users/paulinocollazohornes/Documents/lino-app/src/app/certificaciones/page.tsx
+// File: /Users/paulinocollazohornes/Documents/GitHub/lino-app/src/app/certificaciones/page.tsx
 import * as entry from '../../../../src/app/certificaciones/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 
